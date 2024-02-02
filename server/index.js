@@ -3,7 +3,6 @@ const uploadImage = require("./uploadImage");
 const express = require("express");
 const multer = require("multer"); //a node.js middleware for handling multipart/form-data
 const cors = require("cors");
-const computeSize = require("./computeSize");
 
 const app = express();
 app.use(cors());
