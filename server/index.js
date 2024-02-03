@@ -1,4 +1,3 @@
-// server/index.js
 const uploadImage = require("./uploadImage");
 const express = require("express");
 const multer = require("multer"); //a node.js middleware for handling multipart/form-data
