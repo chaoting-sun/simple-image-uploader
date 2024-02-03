@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import copy from "copy-to-clipboard";
 
 import Button from "./components/Button";
@@ -22,7 +20,7 @@ function App() {
     uploadedImageUrl,
   } = UseUpload();
 
-  console.log(uploadedImage);
+  // console.log(uploadedImage);
 
   const copyImageLink = () => {
     const isCopy = copy(uploadedImageUrl);

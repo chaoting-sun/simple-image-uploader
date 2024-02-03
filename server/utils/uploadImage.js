@@ -7,6 +7,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+
 const uploadImage = async (imageFile, saveName, saveFolder) => {
   const base64Image = imageFile.buffer.toString("base64");
   const dataUri = `data:${imageFile.mimetype};base64,${base64Image}`;

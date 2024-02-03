@@ -2,9 +2,19 @@ const uploadImage = require("./utils/uploadImage");
 const express = require("express");
 const multer = require("multer"); //a node.js middleware for handling multipart/form-data
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
-app.use(cors());
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    cors({
+      origin: process.env.FRONTEND_ORIGIN_URL,
+    })
+  );
+} else {
+  app.use(cors());
+}
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -12,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Backend is running!" });

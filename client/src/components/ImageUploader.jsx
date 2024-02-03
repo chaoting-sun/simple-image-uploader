@@ -12,7 +12,6 @@ import config from "../utils/config";
 const ImageUploader = () => {
   const {
     uploadedImage,
-    uploadedImageUrl,
     setUploadedImageUrl,
     setIsLoading,
     setUploadedImage,
@@ -28,10 +27,9 @@ const ImageUploader = () => {
         setIsLoading(true);
 
         try {
-          await uploadImage(imgObject, imgObject.name);
-
-          const imageUrl = URL.createObjectURL(imgObject);
-          setUploadedImageUrl(imageUrl);
+          const imageUrl = await uploadImage(imgObject, imgObject.name);
+          setUploadedImageUrl(imageUrl); // for downloading the image
+          imgObject.url = URL.createObjectURL(imgObject); // for showing on the screen
           setUploadedImage(imgObject);
         } catch (error) {
           console.error(error);
@@ -57,7 +55,7 @@ const ImageUploader = () => {
       <ToastContainer />
       {uploadedImage ? (
         <img
-          src={uploadedImageUrl}
+          src={uploadedImage.url}
           alt={uploadImage.name}
           className="max-h-[600px] cursor-pointer"
         />
