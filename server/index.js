@@ -6,6 +6,11 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
+// app.use(cors({
+//   origin: "http://your-frontend-url", // Replace with your frontend URL
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   credentials: true,
+// }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -15,14 +20,10 @@ const upload = multer({ storage: storage });
 
 const PORT = process.env.PORT || 5001;
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from ExpressJS" });
-});
-
 app.post("/api/upload_image", upload.single("file"), async (req, res) => {
   const imageFile = req.file;
   const { saveName, saveFolder } = req.body;
-  console.log(imageFile, saveName, saveFolder);
+
   try {
     const { url: imageUrl } = await uploadImage(
       imageFile,
@@ -31,8 +32,8 @@ app.post("/api/upload_image", upload.single("file"), async (req, res) => {
     );
     res.status(200).json({ imageUrl: imageUrl });
   } catch (error) {
-    console.log("error:", error);
-    res.sendStatus(500);
+    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error:", error);
   }
 });
 

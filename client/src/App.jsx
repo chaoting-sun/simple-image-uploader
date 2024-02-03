@@ -18,15 +18,9 @@ import { UseUpload } from "./containers/UseUpload";
 function App() {
   const {
     isLoading,
-    lightMode,
     uploadedImage,
     uploadedImageUrl,
-    setLightMode,
   } = UseUpload();
-
-  const handleToggleMode = () => {
-    setLightMode(!lightMode);
-  };
 
   const copyImageLink = () => {
     const isCopy = copy(uploadedImageUrl);
@@ -46,8 +40,6 @@ function App() {
       document.body.appendChild(downloadLink);
       downloadLink.click();
       document.body.removeChild(downloadLink);
-
-      // URL.revokeObjectURL(imageUrl);
     }
   };
 
@@ -55,10 +47,8 @@ function App() {
     <>
       <div className="relative size-full flex flex-col justify-center items-center bg-gray-100 dark:bg-gray-900">
         <ToastContainer />
-        <Header lightMode={lightMode} handleToggleMode={handleToggleMode} />
-
+        <Header />
         {isLoading ? <Loading /> : <ImageUploader />}
-
         {uploadedImage && (
           <div className="flex flex-center gap-3 mt-8">
             <Button

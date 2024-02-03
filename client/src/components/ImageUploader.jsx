@@ -1,29 +1,13 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import PropTypes from "prop-types";
 import exitURL from "/assets/exit.svg";
-import axios from "axios";
 import { UseUpload } from "../containers/UseUpload";
 import { ToastContainer } from "react-toastify";
 import { showErrorToast } from "../utils/notification";
 import "react-toastify/dist/ReactToastify.css";
+import { uploadImage } from "../services/upload";
 
-const imageSizeLimit = 2 * 1024 * 1024;
-
-const submitImageForm = async (
-  imgObject,
-  saveName="text",
-  saveFolder = "image-uploader"
-) => {
-  const formData = new FormData();
-  formData.append("file", imgObject);
-  formData.append("saveName", saveName);
-  formData.append("saveFolder", saveFolder);
-  const {
-    data: { imageUrl },
-  } = await axios.post("http://localhost:5001/api/upload_image", formData);
-  return imageUrl;
-};
+import config from "../utils/config";
 
 const ImageUploader = () => {
   const {
@@ -38,19 +22,19 @@ const ImageUploader = () => {
   const onDrop = useCallback(
     async (acceptedFiles) => {
       const imgObject = acceptedFiles[0];
-      console.log(imgObject);
+      // console.log(imgObject);
 
-      if (imgObject.size <= imageSizeLimit) {
+      if (imgObject.size <= config.IMAGE_SIZE_LIMIT) {
         setIsLoading(true);
 
         try {
-          await submitImageForm(imgObject, imgObject.name);
+          await uploadImage(imgObject, imgObject.name);
 
           const imageUrl = URL.createObjectURL(imgObject);
           setUploadedImageUrl(imageUrl);
           setUploadedImage(imgObject);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       } else {
         showErrorToast("Image size should be smaller than 2MB!");
@@ -66,16 +50,16 @@ const ImageUploader = () => {
 
   return (
     <div
-      className={`box-border border-gray-400 p-2 rounded-md shadow-custom dark:bg-gray-800 max-w-[700px] min-w-[300px] ${
-        uploadedImage ? "w-fit" : "w-full aspect-video"
+      className={`box-border border-gray-400 p-2 rounded-md shadow-custom dark:bg-gray-800 ${
+        uploadedImage ? "w-fit" : "max-w-[700px] min-w-[300px] w-full aspect-video"
       }`}
     >
       <ToastContainer />
       {uploadedImage ? (
         <img
           src={uploadedImageUrl}
-          alt=""
-          className="max-h-[600px] cursor-pointer hover:opacity-65"
+          alt={uploadImage.name}
+          className="max-h-[600px] cursor-pointer"
         />
       ) : (
         <div

@@ -1,5 +1,4 @@
 import UploadContext from "./UploadContext";
-
 import { useState, useEffect, useContext } from "react";
 
 const UploadProvider = (props) => {
@@ -23,9 +22,17 @@ const UploadProvider = (props) => {
     }
   }, [uploadedImage]);
 
+  const handleToggleMode = () => setLightMode(!lightMode);
+
+  const reset = () => {
+    setUploadedImage(null);
+    uploadedImageUrl("");
+  }
+
   return (
     <UploadContext.Provider
       value={{
+        reset,
         lightMode,
         uploadedImage,
         uploadedImageUrl,
@@ -34,6 +41,7 @@ const UploadProvider = (props) => {
         setUploadedImage,
         setUploadedImageUrl,
         setIsLoading,
+        handleToggleMode
       }}
       {...props}
     ></UploadContext.Provider>

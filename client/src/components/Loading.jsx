@@ -1,7 +1,6 @@
-// ref: https://5balloons.info/how-to-create-custom-css-animations-in-tailwindcss
-
-import PropTypes from "prop-types";
 import { UseUpload } from "../containers/UseUpload";
+
+// ref: https://5balloons.info/how-to-create-custom-css-animations-in-tailwindcss
 
 const Loading = () => {
   const { uploadedImage } = UseUpload();
