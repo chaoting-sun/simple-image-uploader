@@ -19,8 +19,8 @@ const upload = multer({ storage: storage });
 
 const PORT = process.env.PORT || 5001;
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Backend is running!" });
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Backend is running!" });
 });
 
 app.post("/api/upload_image", upload.single("file"), async (req, res) => {
