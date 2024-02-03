@@ -8,6 +8,6 @@ const IMAGE_SIZE_LIMIT = 2 * 1024 * 1024; // 2M
 
 const config = { BASE_URL, IMAGE_SIZE_LIMIT };
 
-// console.log(config);
+console.log(config);
 
 export default config;
