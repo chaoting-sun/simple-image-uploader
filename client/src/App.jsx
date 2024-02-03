@@ -22,6 +22,8 @@ function App() {
     uploadedImageUrl,
   } = UseUpload();
 
+  console.log(uploadedImage);
+
   const copyImageLink = () => {
     const isCopy = copy(uploadedImageUrl);
     if (isCopy) {
