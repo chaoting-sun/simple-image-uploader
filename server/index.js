@@ -19,6 +19,10 @@ const upload = multer({ storage: storage });
 
 const PORT = process.env.PORT || 5001;
 
+app.get("/api", (req, res) => {
+  res.json({ message: "Backend is running!" });
+});
+
 app.post("/api/upload_image", upload.single("file"), async (req, res) => {
   const imageFile = req.file;
   const { saveName, saveFolder } = req.body;
@@ -29,7 +33,9 @@ app.post("/api/upload_image", upload.single("file"), async (req, res) => {
       saveName,
       saveFolder
     );
-    res.status(200).json({ imageUrl: imageUrl });
+    res
+      .status(200)
+      .json({ message: "Uploaded successfully!", imageUrl: imageUrl });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
     console.error("Error:", error);
