@@ -11,12 +11,9 @@
       "src": "/(.*)",
       "dest": "./index.js",
       "methods": ["GET", "POST"],
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
+      "headers": {
+        "Access-Control-Allow-Origin": "https://image-uploader-frontend-olive.vercel.app/"
+      }
     }
   ]
 }
