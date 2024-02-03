@@ -4,12 +4,9 @@ const multer = require("multer"); //a node.js middleware for handling multipart/
 const cors = require("cors");
 
 const app = express();
-app.use(cors());
-// app.use(cors({
-//   origin: "http://your-frontend-url", // Replace with your frontend URL
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: true,
-// }));
+app.use(cors({
+  origin: "https://image-uploader-frontend-olive.vercel.app/"
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
