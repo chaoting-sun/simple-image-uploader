@@ -186,13 +186,13 @@ Add the link to _output.css_ in the head section in _index.html_
 <link href="./src/output.css" rel="stylesheet" />
 ```
 
-Lastly, don't forget to remove `import "index.css"` in _main.jsx_.
+Lastly, don't forget to remove the import of the App.css and index.css file.
 
 #### (2) Basics
 
 We can directly add the classes, which were pre-defined in Tailwind, in the html elements to style them. These classes are logically named and are sufficient for us to create a simple looking frontend. I checked [their documentation](https://tailwindcss.com/docs/installation) every time in the beginning but the rules are easily remembered.
 
-For example, consider styling an element in Tailwind as follows: the element functions as a container with a flex-box (`flex`) arranged in a row direction (`flex-row`) and has a left margin equal to 6% of its container (`ml-[6%]`). The spacing between adjacent elements is set to 20px (`gap-5`).
+For example, consider styling an element in Tailwind as follows: the element functions as a container with a flex-box (`flex`) arranged in a row direction (`flex-row`) and has a left margin equal to 6% of its container (`ml-[6%]`). The spacing between the adjacent elements inside it is set to 20px (`gap-5`).
 
 ```html
 <div className="flex flex-row gap-5 ml-[6%]"></div>
@@ -274,7 +274,7 @@ export default {
 };
 ```
 
-Next, the loading bar is defined as follows: The element with `id="progress"` will smoothly transition left and right. The container is applied with `overflow-hidden` to conceal the moving element if it exceeds the container's range.
+Next, the loading bar is defined as follows: The element with `id="progress"` will smoothly transition between left and right. The container is applied with `overflow-hidden` to conceal the moving element if it exceeds the container's range.
 
 ```js
 <div className="relative h-2 w-[70%] bg-gray-200 rounded-sm overflow-hidden">
@@ -286,7 +286,7 @@ Next, the loading bar is defined as follows: The element with `id="progress"` wi
 
 #### (5) Light and dark mode
 
-Offering a dark mode in a website is an expected feature nowadays. Fortunately, tt is easy to switching between light and dark mode using Tailwind CSS.
+Offering a dark mode in a website is an expected feature nowadays. Fortunately, it is easy to switching between light and dark mode using Tailwind CSS.
 
 Just follow the steps!
 
@@ -304,7 +304,7 @@ _b. Mode toggler_
 
 There are various approaches to toggle modes, with a common concept being the addition of the `dark` class to all document elements for dark mode and its removal for light mode. Below is how I've implemented, although I don't know if it is good.
 
-I've created a hook named lightMode, where the dark class is applied when lightMode is set to true and removed otherwise.
+I created a hook named lightMode, where the dark class is applied when lightMode is set to false and removed otherwise.
 
 ```js
 const [lightMode, setLightMode] = useState(true);
@@ -318,9 +318,18 @@ useEffect(() => {
 }, [lightMode]);
 ```
 
+_c. Adding dark mode property_
+
+The syntax for adding the property in dark mode is `dark:*`. For example, the following element has background of gray-100 in light mode, and change to gray-800 when turning into dark mode.
+
+```html
+<div className="bg-gray-100 dark:bg-gray-800" >
+<div>    
+```
+
 ### react-dropzone
 
-[react-dropzone](https://react-dropzone.js.org/) is a react hook to create a HTML5-compliant drag-and-drop zone for multiple files. I used it in this project such that users can <u>drag and drop</u> or <u>select a file in the folder</u> to upload images.
+[react-dropzone](https://react-dropzone.js.org/) is a react hook used to create a HTML5-compliant drag-and-drop zone for multiple files. I used it in this project such that users can <u>drag and drop</u> or <u>select a file in the folder</u> to upload images.
 
 I recommend to read its documentation as it was well written.
 
@@ -396,7 +405,7 @@ const {
 
 _b. Receive image in backend_
 
-I used Multer to handle FormData. Multer is a Node.js middleware for handing multipart/form-data, which is a Content-Type that is essential for sending different types of data in a single HTTP POST request.
+Multer, a Node.js middleware, is used for handing multipart/form-data. multipart/form-data is a Content-Type that is essential for sending different types of data in a single HTTP POST request.
 
 `upload.single("file")` tells Multer that the file should be extracted from the `"file"` field in the incoming form data. Then, we can access the form data by `req.file` to access our image.
 
@@ -456,16 +465,16 @@ const res = await cloudinary.uploader.upload(dataUri, {
 
 Deployment cost me a lot of time as I kept facing some problems: `404 Not Found`, `CORS`, ...
 
-The following lists what you can try to deploy your project, some need paying but I think it is not much:
+The following lists what you can try to deploy your project, some need paying but I think the cost is not much:
 
-- [Vercel](https://vercel.com/) - has free plan, but I spend several hours to debug the CORS bug and finally gave up.
+- [Vercel](https://vercel.com/) - has a free plan, but I spend several hours to debug the CORS bug and finally gave up.
 - [Deta Space](https://deta.space/) - free, but I think it may take me much time to read the tutorial
-- [Render](https://render.com/) - has free plan
-- [Heroku](https://www.heroku.com/) - has only paided plan
-- [Railway](https://railway.app/) - has only paid plan
-- [fly.io](https://fly.io/) - gives you a one-time $5 sign-up credit (you have to firstly enter your credit card number)
+- [Render](https://render.com/) - has a free plan
+- [Heroku](https://www.heroku.com/) - has only paided plans
+- [Railway](https://railway.app/) - has only paid plans
+- [fly.io](https://fly.io/) - gives you a one-time $5 sign-up credit (you have to firstly upload your credit card number)
 
-Ultimately, I follow the [fly.io documentation](https://fly.io/docs/hands-on/) and successfully deployed. The following are some points that worth mention.
+Ultimately, I followed the [fly.io documentation](https://fly.io/docs/hands-on/) and successfully deployed. The following are some points that worth mention.
 
 #### (1) Import .env for Deployment
 
@@ -493,7 +502,9 @@ app.use(
 
 #### (4) Add backend URL in frontend
 
-We can access the environment variable using `import.meta.env.*`. Some are the [built-in](https://vitejs.dev/guide/env-and-mode) in Vite. For example, `import.meta.env.PROD` is true if `NODE_ENV="production"`, which is set in the Dockerfile.
+Before adding the backend URL, we have to know some other things of Vite.
+
+In Vite, we can access the environment variable using `import.meta.env.*`. Some are the [built-in](https://vitejs.dev/guide/env-and-mode). For example, `import.meta.env.PROD` is true if `NODE_ENV="production"`, which is set in the Dockerfile.
 
 We can add our custom environment variables in .env, .env.[MODE], or .env.[MODE].local file. .env.[MODE] is only loaded given specific mode, while *.local is ignored by git. Therefore, we can create an `.env.development.local` file for our local test (store the backend port), and an `.env.production` for deployment (store the backend URL).
 
