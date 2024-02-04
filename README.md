@@ -396,7 +396,9 @@ const {
 
 _b. Receive image in backend_
 
-I used _multer_ to handle FormData. _multer_ is a Node.js middleware for handing multipart/form-data, which is a Content-Type that is essential for sending different types of data in a single HTTP POST request.
+I used Multer to handle FormData. Multer is a Node.js middleware for handing multipart/form-data, which is a Content-Type that is essential for sending different types of data in a single HTTP POST request.
+
+`upload.single("file")` tells Multer that the file should be extracted from the `"file"` field in the incoming form data. Then, we can access the form data by `req.file` to access our image.
 
 The `req.file` is an object including the following properties: fieldname, originalname, encoding, mimetype, buffer, and size.
 
@@ -479,7 +481,7 @@ fly secrets import < .env
 
 Check if the port written in the Dockerfile the same as that in your code.
 
-#### (3) Enable the fontend URL to access
+#### (3) Enable fontend URL accessment in backend
 
 ```js
 app.use(
@@ -487,4 +489,19 @@ app.use(
     origin: process.env.FRONTEND_ORIGIN_URL,
   })
 );
+```
+
+#### (4) Add backend URL in frontend
+
+We can access the environment variable using `import.meta.env.*`. Some are the [built-in](https://vitejs.dev/guide/env-and-mode) in Vite. For example, `import.meta.env.PROD` is true if `NODE_ENV="production"`, which is set in the Dockerfile.
+
+We can add our custom environment variables in .env, .env.[MODE], or .env.[MODE].local file. .env.[MODE] is only loaded given specific mode, while *.local is ignored by git. Therefore, we can create an `.env.development.local` file for our local test (store the backend port), and an `.env.production` for deployment (store the backend URL).
+
+What worth noting is that all the custom environment variables should be in the format: `VITE_*`.
+
+```js
+const BASE_URL = import.meta.env.PROD
+  ? `${import.meta.env.VITE_BASE_URL}/api`
+  : `http://localhost:${import.meta.env.VITE_PORT}/api`;
+
 ```
