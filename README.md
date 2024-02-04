@@ -11,7 +11,7 @@ The website in the dark mode, after an image was successfully uploaded
 
 ## Welcome! 👋
 
-**Simple Image Uploader** is a front-end coding challenge in [devChallenges](https://devchallenges.io/) platform which helps improve coding skills by building realistic projects.
+**Simple Image Uploader** is a full-stack coding challenge in [devChallenges](https://devchallenges.io/) platform which helps improve coding skills by building realistic projects.
 
 ## The challenge
 
@@ -130,7 +130,7 @@ app.listen(PORT, () => {
 
 _d. Test the server by [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) or [Postman](https://www.postman.com/)_
 
-**REST Client** is a VS code plugin used to send HTTP request and view the response in VS code directly. [The post](https://medium.com/bitsrc/vs-codes-rest-client-plugin-is-all-you-need-to-make-api-calls-e9e95fcfd85a) exhaustively introduced how we use it in multiple situations. On the other hand, **Postman** is an application for testing APIs by sending requests and receiving the responses. I think their [documentation](https://learning.postman.com/docs/introduction/overview/) is worth reading.
+**REST Client** is a VS code plugin used to send HTTP request and view the response in VS code directly. [The post](https://medium.com/bitsrc/vs-codes-rest-client-plugin-is-all-you-need-to-make-api-calls-e9e95fcfd85a) exhaustively introduces how we use it in multiple situations. On the other hand, **Postman** is an application for testing APIs by sending requests and receiving the responses. I think their [documentation](https://learning.postman.com/docs/introduction/overview/) is worth reading.
 
 To make it simple, here we use REST Client to send HTTP requests in the following steps: create a `*.http` or `*.rest` file, write down the HTTP request, and click "Send Request". For example, the following script, if sent, will be transmitted to the localhost:5000, which then returns `{ message: "Backend is running!" }` back if the server is operating normally.
 
@@ -202,7 +202,7 @@ For example, consider styling an element in Tailwind as follows: the element fun
 
 The styles can be costomized either <u>in the html elements</u> or <u>in the _tailwind.config.js_ file</u>.
 
-We use `[]` to specify the value of a style in a html element. for example: `bg-[#f061FF]`, ml-[6%], text-[2.1rem]. This method is often recommended only if the value is used only once on a page.
+We use `[]` to specify the value of a style in a html element. for example: bg-[#f061FF], ml-[6%], text-[2.1rem]. This method is often recommended only if the value is used only once on a page.
 
 When customizing in _tailwind.config.js_, tailwind provides two ways, either <u>extending the default value</u> or <u>replacing it entirely</u>. The difference is, when you just extending the default value for a property, the other pre-defined values given that property can also be used. However, if you replace it entirely, for that property, you can only use what you have defined.
 
@@ -377,7 +377,7 @@ While Cloudinary offers numerous tutorials, its documentation is somewhat hard t
 
 _a. Send image from frontend to backend_
 
-I created a `FormData` object and appended the image object (`imgObject`) with its `file` property. Here I also appended some custom properties like `saveName` and `saveFolder`. The backend will get the `FormData` object by `req.file`, while get the others in `req.body`.
+I created a `FormData` object and append the image object (`imgObject`), save name (`saveName`) and folder (`saveFolder`).
 
 ```js
 const formData = new FormData();
