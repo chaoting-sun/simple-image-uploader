@@ -11,7 +11,7 @@ The website in the dark mode, after an image was successfully uploaded
 
 ## Welcome! 👋
 
-**Github Profile** is a front-end coding challenge in [devChallenges](https://devchallenges.io/) platform which helps improve coding skills by building realistic projects.
+**Simple Image Uploader** is a front-end coding challenge in [devChallenges](https://devchallenges.io/) platform which helps improve coding skills by building realistic projects.
 
 ## The challenge
 
